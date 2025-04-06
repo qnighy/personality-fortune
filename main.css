@@ -46,6 +46,15 @@ body {
   font-size: 1.5rem;
 }
 
+.TitlePage__settings-container {
+  /* outer layout */
+  margin-top: 40px;
+
+  /* inner layout */
+  display: flex;
+  flex-direction: row;
+}
+
 .MainPage__container {
   /* outer layout */
   width: 100%;
@@ -210,6 +219,29 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 .btn:focus-visible {
+  outline: 2px solid #30C0F0;
+  outline-offset: 2px;
+}
+
+.sel {
+  /* outer layout */
+  border: none;
+  border-radius: 5px;
+
+  /* text */
+  font-size: 1.25rem;
+
+  /* content */
+  background-color: #F8F0F0;
+  color: #080810;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.sel:focus {
+  outline: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.sel:focus-visible {
   outline: 2px solid #30C0F0;
   outline-offset: 2px;
 }

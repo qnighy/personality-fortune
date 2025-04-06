@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import ReactDOMClient from "react-dom/client";
 
@@ -13,8 +13,9 @@ function main() {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const start = useCallback(() => {
-    dispatch({ type: "start" });
-  }, [dispatch]);
+    const candidates = getShuffledCandidates(state.mode);
+    dispatch({ type: "start", payload: { candidates } });
+  }, [dispatch, state.mode]);
   const push = useCallback((index, newValue) => {
     dispatch({ type: "push", payload: { index, newValue } });
   }, [dispatch]);
@@ -23,6 +24,9 @@ function App() {
   }, [dispatch]);
   const goBack = useCallback(() => {
     dispatch({ type: "goBack" });
+  }, [dispatch]);
+  const setMode = useCallback((mode) => {
+    dispatch({ type: "setMode", payload: { mode } });
   }, [dispatch]);
 
   return (
@@ -37,6 +41,10 @@ function App() {
           jsx(TitlePage, {
             // start={start}
             start,
+            // mode={state.mode}
+            mode: state.mode,
+            // setMode={setMode}
+            setMode,
           }),
           // />
         state.page === "main" &&
@@ -44,6 +52,8 @@ function App() {
           jsx(MainPage, {
             // lottery={state.lottery}
             lottery: state.lottery,
+            // candidates={state.candidates}
+            candidates: state.candidates,
             // push={push}
             push,
             // goResult={goResult}
@@ -66,7 +76,7 @@ function App() {
 }
 
 function TitlePage(props) {
-  const { start } = props;
+  const { start, mode, setMode } = props;
   const button = useRef(null);
   useEffect(() => {
     button.current?.focus();
@@ -95,10 +105,51 @@ function TitlePage(props) {
           // onClick={start}
           onClick: start,
           // >
-          // Start Lottery
+          // Start
           children: "Start",
         }),
         // </button>
+        // <div
+        jsxs("div", {
+          // className="TitlePage__settings-container"
+          className: "TitlePage__settings-container",
+          // >
+          children: [
+            // <select
+            jsxs("select", {
+              // className="sel TitlePage__settings-mode"
+              className: "sel TitlePage__settings-mode",
+              // value={mode}
+              value: mode,
+              // onChange={(e) => setMode(e.currentTarget.value)}
+              onChange: (e) => setMode(e.currentTarget.value),
+              // >
+              children: [
+                // <option
+                jsx("option", {
+                  // className="opt TitlePage__settings-mode-option"
+                  className: "opt TitlePage__settings-mode-option",
+                  // value="basic"
+                  value: "basic",
+                  // >
+                  // basic mode
+                  children: "basic mode",
+                }),
+                // </option>
+                // <option
+                jsx("option", {
+                  // className="opt TitlePage__settings-mode-option"
+                  className: "opt TitlePage__settings-mode-option",
+                  // value="advanced"
+                  value: "advanced",
+                  children: "advanced mode",
+                }),
+                // </option>
+              ],
+            }),
+          ],
+        }),
+        // </div>
       ],
     })
     // </div>
@@ -106,13 +157,11 @@ function TitlePage(props) {
 }
 
 function MainPage(props) {
-  const { lottery, push, goResult } = props;
-  const lotteryOptions = [
-    ["I", "E"],
-    ["S", "N"],
-    ["T", "F"],
-    ["J", "P"],
-  ];
+  const { lottery, candidates, push, goResult } = props;
+  const lotteryOptions = useMemo(() =>
+    [...lottery].map((_ch, i) => candidates.map((s) => s[i])),
+    [lottery, candidates]
+  );
 
   const [rands, setRands] = useState([0, 0, 0, 0]);
   const needsAnimation = lottery.indexOf("*") >= 0;
@@ -316,7 +365,7 @@ function ResultPage(props) {
               children: [
                 // <span>
                 jsx("span", {
-                  children: "Your lottery is: ",
+                  children: "Your personality is: ",
                 }),
                 // </span>
                 // <span
@@ -358,19 +407,23 @@ function ResultPage(props) {
 
 const initialState = {
   page: "title",
+  mode: "basic",
   lottery: null,
   candidates: null,
 };
 
 function reducer(state, action) {
+  console.log(action);
   switch (action.type) {
-    case "start":
+    case "start": {
+      const { candidates } = action.payload;
       return {
         ...state,
         page: "main",
         lottery: "****",
-        candidates: CANDIDATES,
+        candidates,
       };
+    }
     case "push": {
       const { index, newValue } = action.payload;
       if (state.lottery[index] !== "*") {
@@ -395,7 +448,19 @@ function reducer(state, action) {
       };
     }
     case "goBack":
-      return initialState;
+      return {
+        ...state,
+        page: initialState.page,
+        lottery: initialState.lottery,
+        candidates: initialState.candidates,
+      };
+    case "setMode": {
+      const { mode } = action.payload;
+      return {
+        ...state,
+        mode,
+      };
+    }
     default:
       return state;
   }
@@ -405,7 +470,7 @@ function compilePattern(lottery) {
   return new RegExp(`^${lottery.replace(/\*/g, ".")}$`);
 }
 
-const CANDIDATES = [
+const CANDIDATES_BASIC = [
   "ISTJ",
   "ISTP",
   "ISFJ",
@@ -423,5 +488,168 @@ const CANDIDATES = [
   "ENFJ",
   "ENFP",
 ];
+const CANDIDATES_ADVANCED = [
+  "ISTJ",
+  "ISTP",
+  "ISFJ",
+  "ISFP",
+  "INTJ",
+  "INTP",
+  "INFJ",
+  "INFP",
+  "ESTJ",
+  "ESTP",
+  "ESFJ",
+  "ESFP",
+  "ENTJ",
+  "ENTP",
+  "ENFJ",
+  "ENFP",
+  // Including somewhat popular acronyms/initialisms consisting of 4 letters.
+  // Note: do not include those that can be easily related to a specific personality type
+  //       or relevant feature (e.g. ADHD, PTSD, etc.).
+  // Note: actually not limited to acronyms/initialisms, but also some 4 letter words
+  //       that are sometimes written capitalized.
+  "AAPL",
+  "ACID",
+  "ADSL",
+  "ANSI",
+  "APEC",
+  "ASMR",
+  "BIOS",
+  "CERN",
+  "CISC",
+  "CMOS",
+  "CMYK",
+  "CSRF",
+  "DPRK", // A bit political but should be okay
+  "DRAM",
+  "EULA", // Unrelated to Genshin Impact
+  "FIFA",
+  "FIFO",
+  "FIRE",
+  "FWIW",
+  "GDPR",
+  "GIMP",
+  "GMBH", // Actually GmbH
+  "GOOG",
+  "HDMI",
+  "HDTV",
+  "HTML",
+  "HTTP",
+  "IAEA",
+  "IEEE",
+  "IIRC",
+  "IKEA",
+  "IMDB", // IMDb
+  "IMHO",
+  "IPCC",
+  "ISBN",
+  "ISDN",
+  "ISSN",
+  "JAVA",
+  "JPEG",
+  "JSDF",
+  "JSON",
+  "JTAG",
+  "JWST",
+  "LAMP",
+  "LDAP",
+  "LSAT",
+  "MAFF",
+  "MBCS",
+  "MBTI",
+  "MCMC",
+  "MEMS",
+  "META",
+  "MIDI",
+  "MIPS",
+  "MITM",
+  "MKSA",
+  "MMIO",
+  "MSDN",
+  "MSFT",
+  "MSIE",
+  "MPEG",
+  "MVNO",
+  "NASA",
+  "NATO",
+  "NIST",
+  "NTFS",
+  "NTSC",
+  "NULL", /* Not an acronym but okay */
+  "NYSE",
+  "ODBC",
+  "OECD",
+  "OEIS",
+  "OMFG",
+  "OOBE", /* a[-1] */
+  "OPAC", /* did you read Acendance of a Bookworm? */
+  "OPEC",
+  "PBRT",
+  "PNAS",
+  "PRML",
+  "PUBG",
+  "PYMK",
+  "RAID",
+  "RFID",
+  "RGBA",
+  "RIAA",
+  "RISC",
+  "RTTI",
+  "SAML",
+  "SATA",
+  "SCSI",
+  "SDXC",
+  "SETI",
+  "SGML",
+  "SIAM",
+  "SMTP",
+  "SOAP",
+  "SRAM",
+  "STEM",
+  "SWAT",
+  "TGIF",
+  "TLDR",
+  "TOML",
+  "TSMC",
+  "UCLA",
+  "UEFI",
+  "UMPC",
+  "UNEP",
+  "UNIX",
+  "USPS",
+  "USSR",
+  "UUID",
+  "VLIW",
+  "VLSI",
+  "VOIP",
+  "VRML",
+  "VTOL",
+  "VVVF",
+  "WASI",
+  "WASM",
+  "WLOG",
+  "WSDL",
+  "WWWF",
+  "XSLT",
+  "YACC",
+  "YAML",
+];
+
+function getShuffledCandidates(mode) {
+  return shuffle(mode === "basic" ? CANDIDATES_BASIC : CANDIDATES_ADVANCED);
+}
+function shuffle(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 1; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    if (i !== j) {
+      const [a, b] = [shuffled[i], shuffled[j]];
+      [shuffled[i], shuffled[j]] = [b, a];
+    }
+  }
+  return shuffled;
+}
 
 main();
