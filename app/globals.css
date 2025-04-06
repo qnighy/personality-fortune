@@ -1,6 +1,13 @@
 @import "tailwindcss";
 @import "../main.css";
 
+@utility text-abs-50 {
+  font-size: calc(var(--spacing) * 50);
+}
+@utility inset-shadow-large {
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 @layer components {
   .btn {
     /* outer layout */

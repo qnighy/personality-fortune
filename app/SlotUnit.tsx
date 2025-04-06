@@ -13,7 +13,7 @@ export type SlotUnitProps = {
 export function SlotUnit(props: SlotUnitProps): ReactElement | null {
   const { value, options, randValue, push, focus } = props;
   const optionsExt = [...options, options[0]];
-  const off = -randValue * 240 * options.length;
+  const off = -randValue * options.length;
   const onPush = useCallback(() => {
     const sampled = options[Math.floor(Math.random() * options.length)];
     push(sampled);
@@ -25,11 +25,13 @@ export function SlotUnit(props: SlotUnitProps): ReactElement | null {
     }
   }, [focus]);
   return (
-    <div className="SlotUnit__container">
-      <div className="SlotUnit__window">
+    <div className="SlotUnit__container w-45 h-70 m-1 flex flex-col place-content-center place-items-center">
+      <div className="SlotUnit__window w-45 h-60 rounded-sm overflow-hidden relative inset-shadow-large">
         {
           !!value &&
-            <div className="SlotUnit__option" style={{ top: "0px" }}>
+            <div
+              className="SlotUnit__option absolute w-45 h-60 left-0 text-abs-50 text-center align-middle top-0"
+            >
               <span className="SlotUnit__option-text">
                 {value}
               </span>
@@ -39,8 +41,8 @@ export function SlotUnit(props: SlotUnitProps): ReactElement | null {
           !value &&
             optionsExt.map((option, i) => (
               <div key={`option-${i}`}
-                className="SlotUnit__option SlotUnit__option-active"
-                style={{ top: `${off + i * 240}px` }}
+                className="SlotUnit__option absolute w-45 h-60 left-0 text-abs-50 text-center align-middle filter-[url(#blur-vertical)] select-none cursor-default"
+                style={{ top: `calc(var(--spacing) * ${off + i} * 70)` }}
               >
                 <span className="SlotUnit__option-text">
                   {option}
@@ -49,12 +51,12 @@ export function SlotUnit(props: SlotUnitProps): ReactElement | null {
             ))
         }
       </div>
-      <div className="SlotUnit__button-container">
+      <div className="SlotUnit__button-container w-45 h-10 flex">
         {
           !value &&
             <button
               ref={button}
-              className="btn SlotUnit__button"
+              className="btn SlotUnit__button w-full h-full text-2xl"
               onClick={onPush}
             >
               {"Push!"}

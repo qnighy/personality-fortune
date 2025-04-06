@@ -48,8 +48,10 @@ export function MainPage(props: MainPageProps): ReactElement | null {
   }, [isFinished, goResult]);
 
   return (
-    <div className="MainPage__container">
-      <div className="MainPage__lottery-container">
+    <div className="MainPage__container w-full h-full">
+      <div
+        className="MainPage__lottery-container w-full h-full grid grid-cols-4 md:flex md:flex-row place-content-center place-items-center"
+      >
         {
           [...lottery].map((ch, i) =>
             <SlotUnit key={`slot-${i}`}
