@@ -3,57 +3,11 @@ body {
   margin: 0;
 }
 
-.App__container {
-  /* outer layout */
-  width: 100vw;
-  height: 100vh;
-
-  /* content */
-  background-color: #f0e0c0;
-}
-
-.TitlePage__container {
-  /* outer layout */
-  width: 100%;
-  height: 100%;
-
-  /* inner layout */
-  display: flex;
-  flex-direction: column;
-  place-content: center;
-  place-items: center;
-}
-
-.TitlePage__title {
-  /* outer layout */
-  margin: 0;
-
-  /* text */
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-
-  /* content */
-  color: #333;
-}
-
-.TitlePage__start-button {
-  /* outer layout */
-  margin-top: 20px;
-  padding: 10px 20px;
-
-  /* text */
-  font-size: 1.5rem;
-}
-
-.TitlePage__settings-container {
-  /* outer layout */
-  margin-top: 40px;
-
-  /* inner layout */
-  display: flex;
-  flex-direction: row;
-}
+/* #f0c0e0 -> orange-100 (approximately) */
+/* #3c8f10 -> emerald-700 (approximately) */
+/* #30c0f0 -> sky-400 (approximately) */
+/* #333 -> gray-800 (approximately) */
+/* 3rem -> 5xl (exactly) */
 
 .MainPage__container {
   /* outer layout */
@@ -192,35 +146,6 @@ body {
 
   /* text */
   font-size: 1.5rem;
-}
-
-.btn {
-  /* outer layout */
-  border: none;
-  border-radius: 5px;
-
-  /* content */
-  background-color: #3C8F10;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.btn:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.btn:active {
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.btn:focus {
-  outline: none;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-.btn:focus-visible {
-  outline: 2px solid #30C0F0;
-  outline-offset: 2px;
 }
 
 .sel {

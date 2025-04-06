@@ -27,7 +27,7 @@ export function App(): ReactElement | null {
   }, [dispatch]);
 
   return (
-    <div className="App__container">
+    <div className="App__container w-screen h-screen bg-orange-100">
       {
         state.page === "title" &&
           <TitlePage start={start} mode={state.mode} setMode={setMode} />

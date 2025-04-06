@@ -15,18 +15,18 @@ export function TitlePage(props: TitlePageProps): ReactElement | null {
     button.current?.focus();
   }, []);
   return (
-    <div className="TitlePage__container">
-      <h1 className="TitlePage__title">
+    <div className="TitlePage__container w-full h-full flex flex-col place-content-center place-items-center">
+      <h1 className="TitlePage__title text-5xl font-bold text-center text-gray-800">
         Personality Assessment
       </h1>
       <button
         ref={button}
-        className="btn TitlePage__start-button"
+        className="btn TitlePage__start-button mt-5 px-5 py-2.5 text-2xl"
         onClick={start}
       >
         Start
       </button>
-      <div className="TitlePage__settings-container">
+      <div className="TitlePage__settings-container mt-10 flex flex-row">
         <select
           className="sel TitlePage__settings-mode"
           value={mode}
