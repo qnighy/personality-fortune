@@ -1,21 +1,10 @@
+"use client";
+
 import { StrictMode, useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import ReactDOMClient from "react-dom/client";
 
-function main() {
-  const root = ReactDOMClient.createRoot(document.getElementById("root"));
-  root.render(
-    // <StrictMode>
-    jsx(StrictMode, {
-      children:
-        // <App />
-        jsx(App, {})
-    })
-    // </StrictMode>
-  );
-}
-
-function App() {
+export function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const start = useCallback(() => {
     const candidates = getShuffledCandidates(state.mode);
@@ -655,5 +644,3 @@ function shuffle(array) {
   }
   return shuffled;
 }
-
-main();
