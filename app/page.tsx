@@ -1,4 +1,4 @@
-import { App } from "../main.js";
+import { App } from "./App";
 
 export default function Home() {
   return (

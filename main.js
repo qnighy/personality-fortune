@@ -1,75 +1,9 @@
 "use client";
 
-import { StrictMode, useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { jsx, jsxs, Fragment } from "react/jsx-runtime";
-import ReactDOMClient from "react-dom/client";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { jsx, jsxs } from "react/jsx-runtime";
 
-export function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const start = useCallback(() => {
-    const candidates = getShuffledCandidates(state.mode);
-    dispatch({ type: "start", payload: { candidates } });
-  }, [dispatch, state.mode]);
-  const push = useCallback((index, newValue) => {
-    dispatch({ type: "push", payload: { index, newValue } });
-  }, [dispatch]);
-  const goResult = useCallback(() => {
-    dispatch({ type: "goResult" });
-  }, [dispatch]);
-  const goBack = useCallback(() => {
-    dispatch({ type: "goBack" });
-  }, [dispatch]);
-  const setMode = useCallback((mode) => {
-    dispatch({ type: "setMode", payload: { mode } });
-  }, [dispatch]);
-
-  return (
-    // <div
-    jsxs("div", {
-      // className="App__container"
-      className: "App__container",
-      // >
-      children: [
-        state.page === "title" &&
-          // <TitlePage,
-          jsx(TitlePage, {
-            // start={start}
-            start,
-            // mode={state.mode}
-            mode: state.mode,
-            // setMode={setMode}
-            setMode,
-          }),
-          // />
-        state.page === "main" &&
-          // <MainPage,
-          jsx(MainPage, {
-            // lottery={state.lottery}
-            lottery: state.lottery,
-            // candidates={state.candidates}
-            candidates: state.candidates,
-            // push={push}
-            push,
-            // goResult={goResult}
-            goResult,
-          }),
-          // />
-        state.page === "result" &&
-          // <ResultPage,
-          jsx(ResultPage, {
-            // lottery={state.lottery}
-            lottery: state.lottery,
-            // goBack={goBack}
-            goBack,
-          }),
-          // />
-      ],
-    })
-    // </div>
-  );
-}
-
-function TitlePage(props) {
+export function TitlePage(props) {
   const { start, mode, setMode } = props;
   const button = useRef(null);
   useEffect(() => {
@@ -150,7 +84,7 @@ function TitlePage(props) {
   );
 }
 
-function MainPage(props) {
+export function MainPage(props) {
   const { lottery, candidates, push, goResult } = props;
   const lotteryOptions = useMemo(() =>
     [...lottery].map((_ch, i) => candidates.map((s) => s[i])),
@@ -324,7 +258,7 @@ function SlotUnit(props) {
   );
 }
 
-function ResultPage(props) {
+export function ResultPage(props) {
   const { lottery, goBack } = props;
   const button = useRef(null);
   useEffect(() => {
@@ -399,14 +333,14 @@ function ResultPage(props) {
   );
 }
 
-const initialState = {
+export const initialState = {
   page: "title",
   mode: "basic",
   lottery: null,
   candidates: null,
 };
 
-function reducer(state, action) {
+export function reducer(state, action) {
   switch (action.type) {
     case "start": {
       const { candidates } = action.payload;
@@ -630,7 +564,7 @@ const CANDIDATES_ADVANCED = [
   "YAML",
 ];
 
-function getShuffledCandidates(mode) {
+export function getShuffledCandidates(mode) {
   return shuffle(mode === "basic" ? CANDIDATES_BASIC : CANDIDATES_ADVANCED);
 }
 function shuffle(array) {
