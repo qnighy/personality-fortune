@@ -1,0 +1,140 @@
+body {
+  /* outer layout */
+  margin: 0;
+}
+
+.App__container {
+  /* outer layout */
+  width: 100vw;
+  height: 100vh;
+
+  /* content */
+  background-color: #f0e0c0;
+}
+
+.TitlePage__container {
+  /* outer layout */
+  width: 100%;
+  height: 100%;
+
+  /* inner layout */
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+}
+
+.TitlePage__title {
+  /* text */
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+
+  /* content */
+  color: #333;
+}
+
+.TitlePage__start-button {
+  /* outer layout */
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+
+  /* text */
+  font-size: 1.5rem;
+
+  /* content */
+  background-color: #3C8F10;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.TitlePage__start-button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.TitlePage__start-button:active {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.TitlePage__start-button:focus {
+  outline: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.TitlePage__start-button:focus-visible {
+  outline: 2px solid #30C0F0;
+  outline-offset: 2px;
+}
+
+.MainPage__container {
+  /* outer layout */
+  width: 100%;
+  height: 100%;
+}
+.MainPage__lottery-container {
+  /* outer layout */
+  width: 100%;
+  height: 100%;
+
+  /* inner layout */
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+  place-items: center;
+}
+
+@media (max-width: 768px) {
+  .MainPage__lottery-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-content: center;
+    place-items: center;
+  }
+}
+
+.SlotUnit__container {
+  /* outer layout */
+  width: 180px;
+  height: 240px;
+  margin: 4px;
+
+  /* inner layout */
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+}
+
+.SlotUnit__window {
+  /* outer layout */
+  width: 180px;
+  height: 240px;
+  border-radius: 4px;
+
+  /* inner layout */
+  overflow: hidden;
+  position: relative;
+
+  /* content */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.SlotUnit__option {
+  /* outer layout */
+  position: absolute;
+  width: 180px;
+  height: 240px;
+  left: 0;
+
+  /* text */
+  font-size: 200px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.SlotUnit__option-active {
+  /* content */
+  filter: url(#blur-vertical);
+}
