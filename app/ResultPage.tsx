@@ -14,14 +14,14 @@ export function ResultPage(props: ResultPageProps): ReactElement | null {
     button.current?.focus();
   }, []);
   return (
-    <div className="ResultPage__container">
-      <h1 className="ResultPage__title">
+    <div className="ResultPage__container w-full h-full flex flex-col place-content-center place-items-center">
+      <h1 className="ResultPage__title m-0 text-5xl font-bold text-center text-gray-800">
         Result
       </h1>
-      <div className="ResultPage__lottery">
+      <div className="ResultPage__lottery px-5 py-2.5 text-2xl">
         <span className="ResultPage__lottery-text">
           <span>{"Your personality is: "}</span>
-          <span className="ResultPage__lottery-main">
+          <span className="ResultPage__lottery-main text-3xl font-bold">
             {lottery}
           </span>
           <span>{""}</span>
@@ -29,7 +29,7 @@ export function ResultPage(props: ResultPageProps): ReactElement | null {
       </div>
       <button
         ref={button}
-        className="btn ResultPage__go-back-button"
+        className="btn ResultPage__go-back-button mt-5 px-5 py-2.5 text-2xl"
         onClick={goBack}
       >
         Go Back
