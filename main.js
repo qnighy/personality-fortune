@@ -97,7 +97,10 @@ function MainPage(props) {
     ["J", "P"],
   ];
   const [rands, setRands] = useState([0, 0, 0, 0]);
+  const needsAnimation = lottery.indexOf("*") >= 0;
   useEffect(() => {
+    if (!needsAnimation) return;
+
     let active = true;
     function animate() {
       if (!active) return;
@@ -107,7 +110,7 @@ function MainPage(props) {
     }
     animate();
     return () => { active = false; };
-  }, []);
+  }, [needsAnimation]);
   const focusIndex = lottery.indexOf("*");
   return (
     // <div
