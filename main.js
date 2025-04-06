@@ -1,12 +1,17 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { StrictMode, useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import ReactDOMClient from "react-dom/client";
 
 function main() {
   const root = ReactDOMClient.createRoot(document.getElementById("root"));
   root.render(
-    // <App />
-    jsx(App, {})
+    // <StrictMode>
+    jsx(StrictMode, {
+      children:
+        // <App />
+        jsx(App, {})
+    })
+    // </StrictMode>
   );
 }
 
