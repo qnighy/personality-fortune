@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "../main.css";
 
 @utility text-abs-50 {
   font-size: calc(var(--spacing) * 50);
