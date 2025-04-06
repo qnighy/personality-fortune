@@ -2,7 +2,8 @@
 
 import { useCallback, useReducer } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
-import { MainPage, ResultPage, TitlePage, getShuffledCandidates, initialState, reducer } from "../main.js";
+import { initialState, reducer } from "./state";
+import { MainPage, ResultPage, TitlePage, getShuffledCandidates } from "../main.js";
 
 export function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
