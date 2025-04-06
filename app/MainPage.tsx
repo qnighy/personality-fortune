@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactElement, useEffect, useMemo, useState } from "react";
-import { jsx, jsxs } from "react/jsx-runtime";
 import { SlotUnit } from "./SlotUnit";
 
 export type MainPageProps = {
@@ -49,38 +48,20 @@ export function MainPage(props: MainPageProps): ReactElement | null {
   }, [isFinished, goResult]);
 
   return (
-    // <div
-    jsx("div", {
-      // className="MainPage__container"
-      className: "MainPage__container",
-      // >
-      children:
-        // <div
-        jsxs("div", {
-          // className="MainPage__lottery-container"
-          className: "MainPage__lottery-container",
-          // >
-          children: [
-            [...lottery].map((ch, i) =>
-              // <SlotUnit key={`slot-${i}`}
-              jsx(SlotUnit, {
-                // value={ch === "*" ? null : ch}
-                value: ch === "*" ? null : ch,
-                // options={lotteryOptions[i]}
-                options: lotteryOptions[i],
-                // randValue={rands[i]}
-                randValue: rands[i],
-                // push={(ch: string) => push(i, ch)}
-                push: (ch: string) => push(i, ch),
-                // focus={focusIndex === i}
-                focus: focusIndex === i,
-              }, `slot-${i}`)
-              // />
-            ),
-          ],
-        })
-        // </div>
-    })
-    // </div>
+    <div className="MainPage__container">
+      <div className="MainPage__lottery-container">
+        {
+          [...lottery].map((ch, i) =>
+            <SlotUnit key={`slot-${i}`}
+              value={ch === "*" ? null : ch}
+              options={lotteryOptions[i]}
+              randValue={rands[i]}
+              push={(ch: string) => push(i, ch)}
+              focus={focusIndex === i}
+            />
+          )
+        }
+      </div>
+    </div>
   );
 }

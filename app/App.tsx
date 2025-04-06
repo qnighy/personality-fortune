@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactElement, useCallback, useReducer } from "react";
-import { jsx, jsxs } from "react/jsx-runtime";
 import { initialState, reducer } from "./state";
 import { getShuffledCandidates } from "./candidates";
 import { TitlePage } from "./TitlePage";
@@ -28,47 +27,24 @@ export function App(): ReactElement | null {
   }, [dispatch]);
 
   return (
-    // <div
-    jsxs("div", {
-      // className="App__container"
-      className: "App__container",
-      // >
-      children: [
+    <div className="App__container">
+      {
         state.page === "title" &&
-          // <TitlePage,
-          jsx(TitlePage, {
-            // start={start}
-            start,
-            // mode={state.mode}
-            mode: state.mode,
-            // setMode={setMode}
-            setMode,
-          }),
-          // />
+          <TitlePage start={start} mode={state.mode} setMode={setMode} />
+      }
+      {
         state.page === "main" &&
-          // <MainPage,
-          jsx(MainPage, {
-            // lottery={state.lottery}
-            lottery: state.lottery,
-            // candidates={state.candidates}
-            candidates: state.candidates,
-            // push={push}
-            push,
-            // goResult={goResult}
-            goResult,
-          }),
-          // />
+          <MainPage
+            lottery={state.lottery!}
+            candidates={state.candidates!}
+            push={push}
+            goResult={goResult}
+          />
+      }
+      {
         state.page === "result" &&
-          // <ResultPage,
-          jsx(ResultPage, {
-            // lottery={state.lottery}
-            lottery: state.lottery,
-            // goBack={goBack}
-            goBack,
-          }),
-          // />
-      ],
-    })
-    // </div>
+          <ResultPage lottery={state.lottery!} goBack={goBack} />
+      }
+    </div>
   );
 }

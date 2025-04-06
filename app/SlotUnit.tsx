@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactElement, useCallback, useEffect, useRef } from "react";
-import { jsx, jsxs } from "react/jsx-runtime";
 
 export type SlotUnitProps = {
   value?: string | null | undefined;
@@ -26,87 +25,42 @@ export function SlotUnit(props: SlotUnitProps): ReactElement | null {
     }
   }, [focus]);
   return (
-    // <div
-    jsxs("div", {
-      // className="SlotUnit__container"
-      className: "SlotUnit__container",
-      // >
-      children: [
-        // <div
-        jsxs("div", {
-          // className="SlotUnit__window"
-          className: "SlotUnit__window",
-          // >
-          children: [
-            !!value &&
-              // <div
-              jsxs("div", {
-                // className="SlotUnit__option"
-                className: "SlotUnit__option",
-                // style={{ top: "0px" }}
-                style: { top: "0px", },
-                // >
-                children: [
-                  // <span
-                  jsx("span", {
-                    // className="SlotUnit__option-text"
-                    className: "SlotUnit__option-text",
-                    // >
-                    children: value,
-                  }),
-                  // </span>
-                ],
-              }),
-              // />
-            !value &&
-              optionsExt.map((option, i) => (
-                // <div key={`option-${i}`}
-                jsxs("div", {
-                  // className="SlotUnit__option SlotUnit__option-active"
-                  className: "SlotUnit__option SlotUnit__option-active",
-                  // style={{ top: `${off + i * 240}px` }}
-                  style: { top: `${off + i * 240}px`, },
-                  // >
-                  children: [
-                    // <span
-                    jsx("span", {
-                      // className="SlotUnit__option-text"
-                      className: "SlotUnit__option-text",
-                      // >
-                      children: option,
-                    }),
-                    // </span>
-                  ],
-                }, `option-${i}`)
-                // />
-              )),
-          ],
-        }),
-        // </div>
-        // <div
-        jsxs("div", {
-          // className="SlotUnit__button-container"
-          className: "SlotUnit__button-container",
-          // >
-          children: [
-            !value &&
-              // <button
-              jsx("button", {
-                // ref={button}
-                ref: button,
-                // className="btn SlotUnit__button"
-                className: "btn SlotUnit__button",
-                // onClick={onPush}
-                onClick: onPush,
-                // >
-                children: "Push!",
-              }),
-              // </button>
-          ],
-        }),
-        // </div>
-      ],
-    })
-    // </div>
+    <div className="SlotUnit__container">
+      <div className="SlotUnit__window">
+        {
+          !!value &&
+            <div className="SlotUnit__option" style={{ top: "0px" }}>
+              <span className="SlotUnit__option-text">
+                {value}
+              </span>
+            </div>
+        }
+        {
+          !value &&
+            optionsExt.map((option, i) => (
+              <div key={`option-${i}`}
+                className="SlotUnit__option SlotUnit__option-active"
+                style={{ top: `${off + i * 240}px` }}
+              >
+                <span className="SlotUnit__option-text">
+                  {option}
+                </span>
+              </div>
+            ))
+        }
+      </div>
+      <div className="SlotUnit__button-container">
+        {
+          !value &&
+            <button
+              ref={button}
+              className="btn SlotUnit__button"
+              onClick={onPush}
+            >
+              {"Push!"}
+            </button>
+        }
+      </div>
+    </div>
   );
 }
