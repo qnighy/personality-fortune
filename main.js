@@ -11,12 +11,18 @@ function main() {
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, intialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const start = useCallback(() => {
     dispatch({ type: "start" });
   }, [dispatch]);
   const push = useCallback((index, newValue) => {
     dispatch({ type: "push", payload: { index, newValue } });
+  }, [dispatch]);
+  const goResult = useCallback(() => {
+    dispatch({ type: "goResult" });
+  }, [dispatch]);
+  const goBack = useCallback(() => {
+    dispatch({ type: "goBack" });
   }, [dispatch]);
 
   return (
@@ -40,6 +46,17 @@ function App() {
             lottery: state.lottery,
             // push={push}
             push,
+            // goResult={goResult}
+            goResult,
+          }),
+          // />
+        state.page === "result" &&
+          // <ResultPage,
+          jsx(ResultPage, {
+            // lottery={state.lottery}
+            lottery: state.lottery,
+            // goBack={goBack}
+            goBack,
           }),
           // />
       ],
@@ -89,13 +106,14 @@ function TitlePage(props) {
 }
 
 function MainPage(props) {
-  const { lottery, push } = props;
+  const { lottery, push, goResult } = props;
   const lotteryOptions = [
     ["I", "E"],
     ["S", "N"],
     ["T", "F"],
     ["J", "P"],
   ];
+
   const [rands, setRands] = useState([0, 0, 0, 0]);
   const needsAnimation = lottery.indexOf("*") >= 0;
   useEffect(() => {
@@ -111,7 +129,21 @@ function MainPage(props) {
     animate();
     return () => { active = false; };
   }, [needsAnimation]);
+
   const focusIndex = lottery.indexOf("*");
+
+  const isFinished = lottery.indexOf("*") < 0;
+  useEffect(() => {
+    if (isFinished) {
+      const timer = setTimeout(() => {
+        goResult();
+      }, 1000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [isFinished, goResult]);
+
   return (
     // <div
     jsx("div", {
@@ -249,7 +281,82 @@ function SlotUnit(props) {
   );
 }
 
-const intialState = {
+function ResultPage(props) {
+  const { lottery, goBack } = props;
+  const button = useRef(null);
+  useEffect(() => {
+    button.current?.focus();
+  }, []);
+  return (
+    // <div
+    jsxs("div", {
+      // className="ResultPage__container"
+      className: "ResultPage__container",
+      // >
+      children: [
+        // <h1
+        jsx("h1", {
+          // className="ResultPage__title"
+          className: "ResultPage__title",
+          // >
+          children: "Result",
+        }),
+        // </h1>
+        // <div
+        jsxs("div", {
+          // className="ResultPage__lottery"
+          className: "ResultPage__lottery",
+          // >
+          children: [
+            // <span
+            jsxs("span", {
+              // className="ResultPage__lottery-text"
+              className: "ResultPage__lottery-text",
+              // >
+              children: [
+                // <span>
+                jsx("span", {
+                  children: "Your lottery is: ",
+                }),
+                // </span>
+                // <span
+                jsx("span", {
+                  // className="ResultPage__lottery-main"
+                  className: "ResultPage__lottery-main",
+                  // >
+                  children: lottery,
+                }),
+                // </span>
+                // <span>
+                jsx("span", {
+                  children: "",
+                }),
+                // </span>
+              ],
+            }),
+            // </span>
+          ],
+        }),
+        // </div>
+        // <button
+        jsx("button", {
+          // ref={button}
+          ref: button,
+          // className="btn ResultPage__go-back-button"
+          className: "btn ResultPage__go-back-button",
+          // onClick={goBack}
+          onClick: goBack,
+          // >
+          children: "Go Back",
+        }),
+        // </button>
+      ],
+    })
+    // </div>
+  );
+}
+
+const initialState = {
   page: "title",
   lottery: null,
   candidates: null,
@@ -281,6 +388,14 @@ function reducer(state, action) {
         candidates: newCandidates,
       }
     }
+    case "goResult": {
+      return {
+        ...state,
+        page: "result",
+      };
+    }
+    case "goBack":
+      return initialState;
     default:
       return state;
   }

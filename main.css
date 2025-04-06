@@ -25,6 +25,9 @@ body {
 }
 
 .TitlePage__title {
+  /* outer layout */
+  margin: 0;
+
   /* text */
   font-size: 3rem;
   font-weight: bold;
@@ -129,6 +132,54 @@ body {
   /* outer layout */
   width: 100%;
   height: 100%;
+
+  /* text */
+  font-size: 1.5rem;
+}
+
+.ResultPage__container {
+  /* outer layout */
+  width: 100%;
+  height: 100%;
+
+  /* inner layout */
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+}
+
+.ResultPage__title {
+  /* outer layout */
+  margin: 0;
+
+  /* text */
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+
+  /* content */
+  color: #333;
+}
+
+.ResultPage__lottery {
+  /* outer layout */
+  padding: 10px 20px;
+
+  /* text */
+  font-size: 1.5rem;
+}
+
+.ResultPage__lottery-main {
+  /* text */
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.ResultPage__go-back-button {
+  /* outer layout */
+  margin-top: 20px;
+  padding: 10px 20px;
 
   /* text */
   font-size: 1.5rem;
