@@ -1,9 +1,16 @@
-import { Book, Message } from "@hi18n/core";
+import { Book, ComponentPlaceholder, Message } from "@hi18n/core";
 import catalogEn from "./en";
 import catalogJa from "./ja";
 
 export type Vocabulary = {
-  title: Message;
+  "main/stop-slot": Message;
+  "mode/advanced": Message;
+  "mode/basic": Message;
+  "result/description": Message<{ span: ComponentPlaceholder, result: ComponentPlaceholder }>;
+  "result/go-back": Message;
+  "result/title": Message;
+  "title/title": Message;
+  "title/start": Message;
 };
 
 export const book = new Book<Vocabulary>({

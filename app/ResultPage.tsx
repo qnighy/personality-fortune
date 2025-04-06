@@ -1,6 +1,8 @@
 "use client";
 
-import { ReactElement, useEffect, useRef } from "react";
+import { Translate, useI18n } from "@hi18n/react";
+import { ReactElement, ReactNode, useEffect, useRef } from "react";
+import { book } from "./locales";
 
 export type ResultPageProps = {
   lottery: string;
@@ -9,6 +11,7 @@ export type ResultPageProps = {
 
 export function ResultPage(props: ResultPageProps): ReactElement | null {
   const { lottery, goBack } = props;
+  const { t } = useI18n(book);
   const button = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     button.current?.focus();
@@ -16,15 +19,24 @@ export function ResultPage(props: ResultPageProps): ReactElement | null {
   return (
     <div className="ResultPage__container w-full h-full flex flex-col place-content-center place-items-center">
       <h1 className="ResultPage__title m-0 text-5xl font-bold text-center text-gray-800">
-        Result
+        {t("result/title")}
       </h1>
       <div className="ResultPage__lottery px-5 py-2.5 text-2xl">
         <span className="ResultPage__lottery-text">
-          <span>{"Your personality is: "}</span>
-          <span className="ResultPage__lottery-main text-3xl font-bold">
-            {lottery}
-          </span>
-          <span>{""}</span>
+          <Translate
+            book={book}
+            id="result/description"
+            span={<span />}
+            result={
+              <Wrapper
+                node={
+                  <span className="ResultPage__lottery-main text-3xl font-bold">
+                    {lottery}
+                  </span>
+                }
+              />
+            }
+          />
         </span>
       </div>
       <button
@@ -32,8 +44,12 @@ export function ResultPage(props: ResultPageProps): ReactElement | null {
         className="btn ResultPage__go-back-button mt-5 px-5 py-2.5 text-2xl"
         onClick={goBack}
       >
-        Go Back
+        {t("result/go-back")}
       </button>
     </div>
   );
+}
+
+function Wrapper(props: { node: ReactNode }): ReactElement {
+  return <>{props.node}</>;
 }

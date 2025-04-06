@@ -20,14 +20,14 @@ export function TitlePage(props: TitlePageProps): ReactElement | null {
   return (
     <div className="TitlePage__container w-full h-full flex flex-col place-content-center place-items-center">
       <h1 className="TitlePage__title text-5xl font-bold text-center text-gray-800">
-        {t("title")}
+        {t("title/title")}
       </h1>
       <button
         ref={button}
         className="btn TitlePage__start-button mt-5 px-5 py-2.5 text-2xl"
         onClick={start}
       >
-        Start
+        {t("title/start")}
       </button>
       <div className="TitlePage__settings-container mt-10 flex flex-row">
         <select
@@ -36,10 +36,10 @@ export function TitlePage(props: TitlePageProps): ReactElement | null {
           onChange={(e: ChangeEvent<HTMLSelectElement>) => setMode(e.currentTarget.value as "basic" | "advanced")}
         >
           <option className="opt TitlePage__settings-mode-option" value="basic">
-            basic mode
+            {t("mode/basic")}
           </option>
           <option className="opt TitlePage__settings-mode-option" value="advanced">
-            advanced mode
+            {t("mode/advanced")}
           </option>
         </select>
       </div>

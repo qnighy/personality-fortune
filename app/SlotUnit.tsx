@@ -1,6 +1,8 @@
 "use client";
 
 import { ReactElement, useCallback, useEffect, useRef } from "react";
+import { useI18n } from "@hi18n/react";
+import { book } from "./locales";
 
 export type SlotUnitProps = {
   value?: string | null | undefined;
@@ -12,6 +14,7 @@ export type SlotUnitProps = {
 
 export function SlotUnit(props: SlotUnitProps): ReactElement | null {
   const { value, options, randValue, push, focus } = props;
+  const { t } = useI18n(book);
   const floatIndex = randValue * options.length;
   const firstOptionIndex = Math.floor(floatIndex);
   const secondOptionIndex = (firstOptionIndex + 1) % options.length;
@@ -61,7 +64,7 @@ export function SlotUnit(props: SlotUnitProps): ReactElement | null {
               className="btn SlotUnit__button w-full h-full text-2xl"
               onClick={onPush}
             >
-              {"Push!"}
+              {t("main/stop-slot")}
             </button>
         }
       </div>
