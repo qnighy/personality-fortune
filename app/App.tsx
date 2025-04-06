@@ -26,6 +26,9 @@ export function App(): ReactElement | null {
   const setMode = useCallback((mode: "basic" | "advanced") => {
     dispatch({ type: "setMode", payload: { mode } });
   }, [dispatch]);
+  const setLocale = useCallback((locale: string) => {
+    dispatch({ type: "setLocale", payload: { locale } });
+  }, [dispatch]);
 
   useEffect(() => {
     const locale = selectLocaleFromDefault();
@@ -37,7 +40,13 @@ export function App(): ReactElement | null {
       <div className="App__container w-screen h-screen bg-orange-100">
         {
           state.page === "title" &&
-            <TitlePage start={start} mode={state.mode} setMode={setMode} />
+            <TitlePage
+              start={start}
+              mode={state.mode}
+              setMode={setMode}
+              locale={state.locale}
+              setLocale={setLocale}
+            />
         }
         {
           state.page === "main" &&
