@@ -3,7 +3,7 @@
 import { useCallback, useReducer } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { initialState, reducer } from "./state";
-import { getShuffledCandidates } from "../main.js";
+import { getShuffledCandidates } from "./candidates";
 import { TitlePage } from "./TitlePage";
 import { MainPage } from "./MainPage";
 import { ResultPage } from "./ResultPage";
