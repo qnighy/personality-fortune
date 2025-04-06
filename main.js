@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { jsx, jsxs, Fragment } from "react/jsx-runtime";
 import ReactDOMClient from "react-dom/client";
 
@@ -50,6 +50,10 @@ function App() {
 
 function TitlePage(props) {
   const { start } = props;
+  const button = useRef(null);
+  useEffect(() => {
+    button.current?.focus();
+  }, []);
   return (
     // <div
     jsxs("div", {
@@ -67,6 +71,8 @@ function TitlePage(props) {
         // </h1>
         // <button
         jsx("button", {
+          // ref={button}
+          ref: button,
           // className="btn TitlePage__start-button"
           className: "btn TitlePage__start-button",
           // onClick={start}
@@ -102,6 +108,7 @@ function MainPage(props) {
     animate();
     return () => { active = false; };
   }, []);
+  const focusIndex = lottery.indexOf("*");
   return (
     // <div
     jsx("div", {
@@ -126,6 +133,8 @@ function MainPage(props) {
                 randValue: rands[i],
                 // push={(ch) => push(i, ch)}
                 push: (ch) => push(i, ch),
+                // focus={focusIndex === i}
+                focus: focusIndex === i,
               }, `slot-${i}`)
               // />
             ),
@@ -138,13 +147,19 @@ function MainPage(props) {
 }
 
 function SlotUnit(props) {
-  const { value, options, randValue, push } = props;
+  const { value, options, randValue, push, focus } = props;
   const optionsExt = [...options, options[0]];
   const off = -randValue * 240 * options.length;
   const onPush = useCallback(() => {
     const sampled = options[Math.floor(randValue * options.length)];
     push(sampled);
   }, [options, push]);
+  const button = useRef(null);
+  useEffect(() => {
+    if (focus) {
+      button.current?.focus();
+    }
+  }, [focus]);
   return (
     // <div
     jsxs("div", {
@@ -212,6 +227,8 @@ function SlotUnit(props) {
             !value &&
               // <button
               jsx("button", {
+                // ref={button}
+                ref: button,
                 // className="btn SlotUnit__button"
                 className: "btn SlotUnit__button",
                 // onClick={onPush}
