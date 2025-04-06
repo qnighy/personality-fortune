@@ -1,6 +1,7 @@
 export type State = {
   page: "title" | "main" | "result";
   mode: "basic" | "advanced";
+  locale: string;
   lottery: string | null;
   candidates: string[] | null;
 };
@@ -8,6 +9,7 @@ export type State = {
 export const initialState: State = {
   page: "title",
   mode: "basic",
+  locale: "en",
   lottery: null,
   candidates: null,
 };
@@ -60,6 +62,13 @@ export function reducer(state: State, action: Action): State {
         mode,
       };
     }
+    case "setLocale": {
+      const { locale } = action.payload;
+      return {
+        ...state,
+        locale,
+      };
+    }
     default:
       return state;
   }
@@ -74,7 +83,8 @@ export type Action =
   | PushAction
   | GoResultAction
   | GoBackAction
-  | SetModeAction;
+  | SetModeAction
+  | SetLocaleAction;
 
 export type StartAction = {
   type: "start";
@@ -99,5 +109,11 @@ export type SetModeAction = {
   type: "setMode";
   payload: {
     mode: "basic" | "advanced";
+  };
+};
+export type SetLocaleAction = {
+  type: "setLocale";
+  payload: {
+    locale: string;
   };
 };

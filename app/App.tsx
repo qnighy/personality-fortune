@@ -1,6 +1,7 @@
 "use client";
 
-import { ReactElement, useCallback, useReducer } from "react";
+import { ReactElement, useCallback, useEffect, useReducer } from "react";
+import { LocaleProvider } from "@hi18n/react";
 import { initialState, reducer } from "./state";
 import { getShuffledCandidates } from "./candidates";
 import { TitlePage } from "./TitlePage";
@@ -26,25 +27,43 @@ export function App(): ReactElement | null {
     dispatch({ type: "setMode", payload: { mode } });
   }, [dispatch]);
 
+  useEffect(() => {
+    const locale = selectLocaleFromDefault();
+    dispatch({ type: "setLocale", payload: { locale } });
+  }, [dispatch]);
+
   return (
-    <div className="App__container w-screen h-screen bg-orange-100">
-      {
-        state.page === "title" &&
-          <TitlePage start={start} mode={state.mode} setMode={setMode} />
-      }
-      {
-        state.page === "main" &&
-          <MainPage
-            lottery={state.lottery!}
-            candidates={state.candidates!}
-            push={push}
-            goResult={goResult}
-          />
-      }
-      {
-        state.page === "result" &&
-          <ResultPage lottery={state.lottery!} goBack={goBack} />
-      }
-    </div>
+    <LocaleProvider locales={[state.locale]} >
+      <div className="App__container w-screen h-screen bg-orange-100">
+        {
+          state.page === "title" &&
+            <TitlePage start={start} mode={state.mode} setMode={setMode} />
+        }
+        {
+          state.page === "main" &&
+            <MainPage
+              lottery={state.lottery!}
+              candidates={state.candidates!}
+              push={push}
+              goResult={goResult}
+            />
+        }
+        {
+          state.page === "result" &&
+            <ResultPage lottery={state.lottery!} goBack={goBack} />
+        }
+      </div>
+    </LocaleProvider>
   );
+}
+
+function selectLocaleFromDefault(): string {
+  for (const language of navigator.languages) {
+    if (/^ja\b/i.test(language)) {
+      return "ja";
+    } else if (/^en\b/i.test(language)) {
+      return "en";
+    }
+  }
+  return "en";
 }

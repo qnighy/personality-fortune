@@ -1,6 +1,8 @@
 "use client";
 
 import { ChangeEvent, ReactElement, useEffect, useRef } from "react";
+import { useI18n } from "@hi18n/react";
+import { book } from "./locales";
 
 export type TitlePageProps = {
   start: () => void;
@@ -10,6 +12,7 @@ export type TitlePageProps = {
 
 export function TitlePage(props: TitlePageProps): ReactElement | null {
   const { start, mode, setMode } = props;
+  const { t } = useI18n(book);
   const button = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     button.current?.focus();
@@ -17,7 +20,7 @@ export function TitlePage(props: TitlePageProps): ReactElement | null {
   return (
     <div className="TitlePage__container w-full h-full flex flex-col place-content-center place-items-center">
       <h1 className="TitlePage__title text-5xl font-bold text-center text-gray-800">
-        Personality Assessment
+        {t("title")}
       </h1>
       <button
         ref={button}
