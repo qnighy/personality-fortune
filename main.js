@@ -15,6 +15,9 @@ function App() {
   const start = useCallback(() => {
     dispatch({ type: "start" });
   }, [dispatch]);
+  const push = useCallback((index, newValue) => {
+    dispatch({ type: "push", payload: { index, newValue } });
+  }, [dispatch]);
 
   return (
     // <div
@@ -35,6 +38,8 @@ function App() {
           jsx(MainPage, {
             // lottery={state.lottery}
             lottery: state.lottery,
+            // push={push}
+            push,
           }),
           // />
       ],
@@ -62,8 +67,8 @@ function TitlePage(props) {
         // </h1>
         // <button
         jsx("button", {
-          // className="TitlePage__start-button"
-          className: "TitlePage__start-button",
+          // className="btn TitlePage__start-button"
+          className: "btn TitlePage__start-button",
           // onClick={start}
           onClick: start,
           // >
@@ -78,7 +83,7 @@ function TitlePage(props) {
 }
 
 function MainPage(props) {
-  const { lottery } = props;
+  const { lottery, push } = props;
   const lotteryOptions = [
     ["I", "E"],
     ["S", "N"],
@@ -119,6 +124,8 @@ function MainPage(props) {
                 options: lotteryOptions[i],
                 // randValue={rands[i]}
                 randValue: rands[i],
+                // push={(ch) => push(i, ch)}
+                push: (ch) => push(i, ch),
               }, `slot-${i}`)
               // />
             ),
@@ -131,9 +138,13 @@ function MainPage(props) {
 }
 
 function SlotUnit(props) {
-  const { value, options, randValue } = props;
+  const { value, options, randValue, push } = props;
   const optionsExt = [...options, options[0]];
   const off = -randValue * 240 * options.length;
+  const onPush = useCallback(() => {
+    const sampled = options[Math.floor(randValue * options.length)];
+    push(sampled);
+  }, [options, push]);
   return (
     // <div
     jsxs("div", {
@@ -192,6 +203,26 @@ function SlotUnit(props) {
           ],
         }),
         // </div>
+        // <div
+        jsxs("div", {
+          // className="SlotUnit__button-container"
+          className: "SlotUnit__button-container",
+          // >
+          children: [
+            !value &&
+              // <button
+              jsx("button", {
+                // className="btn SlotUnit__button"
+                className: "btn SlotUnit__button",
+                // onClick={onPush}
+                onClick: onPush,
+                // >
+                children: "Push!",
+              }),
+              // </button>
+          ],
+        }),
+        // </div>
       ],
     })
     // </div>
@@ -201,6 +232,7 @@ function SlotUnit(props) {
 const intialState = {
   page: "title",
   lottery: null,
+  candidates: null,
 };
 
 function reducer(state, action) {
@@ -210,10 +242,51 @@ function reducer(state, action) {
         ...state,
         page: "main",
         lottery: "****",
+        candidates: CANDIDATES,
       };
+    case "push": {
+      const { index, newValue } = action.payload;
+      if (state.lottery[index] !== "*") {
+        return state;
+      }
+      const newLottery = state.lottery.slice(0, index) + newValue + state.lottery.slice(index + 1);
+      const pattern = compilePattern(newLottery);
+      const newCandidates = state.candidates.filter((candidate) => pattern.test(candidate));
+      if (newCandidates.length === 0) {
+        return state;
+      }
+      return {
+        ...state,
+        lottery: newLottery,
+        candidates: newCandidates,
+      }
+    }
     default:
       return state;
   }
 }
+
+function compilePattern(lottery) {
+  return new RegExp(`^${lottery.replace(/\*/g, ".")}$`);
+}
+
+const CANDIDATES = [
+  "ISTJ",
+  "ISTP",
+  "ISFJ",
+  "ISFP",
+  "INTJ",
+  "INTP",
+  "INFJ",
+  "INFP",
+  "ESTJ",
+  "ESTP",
+  "ESFJ",
+  "ESFP",
+  "ENTJ",
+  "ENTP",
+  "ENFJ",
+  "ENFP",
+];
 
 main();

@@ -38,34 +38,9 @@ body {
   /* outer layout */
   margin-top: 20px;
   padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
 
   /* text */
   font-size: 1.5rem;
-
-  /* content */
-  background-color: #3C8F10;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.TitlePage__start-button:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.TitlePage__start-button:active {
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.TitlePage__start-button:focus {
-  outline: none;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-.TitlePage__start-button:focus-visible {
-  outline: 2px solid #30C0F0;
-  outline-offset: 2px;
 }
 
 .MainPage__container {
@@ -97,7 +72,7 @@ body {
 .SlotUnit__container {
   /* outer layout */
   width: 180px;
-  height: 240px;
+  height: 280px;
   margin: 4px;
 
   /* inner layout */
@@ -137,4 +112,53 @@ body {
 .SlotUnit__option-active {
   /* content */
   filter: url(#blur-vertical);
+  user-select: none;
+  cursor: default;
+}
+
+.SlotUnit__button-container {
+  /* outer layout */
+  width: 180px;
+  height: 40px;
+
+  /* inner layout */
+  display: flex;
+}
+
+.SlotUnit__button {
+  /* outer layout */
+  width: 100%;
+  height: 100%;
+
+  /* text */
+  font-size: 1.5rem;
+}
+
+.btn {
+  /* outer layout */
+  border: none;
+  border-radius: 5px;
+
+  /* content */
+  background-color: #3C8F10;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.btn:focus-visible {
+  outline: 2px solid #30C0F0;
+  outline-offset: 2px;
 }
