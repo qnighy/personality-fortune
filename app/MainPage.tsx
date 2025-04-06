@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
-import { SlotUnit } from "../main.js";
+import { SlotUnit } from "./SlotUnit";
 
 export function MainPage(props) {
   const { lottery, candidates, push, goResult } = props;
