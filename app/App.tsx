@@ -1,12 +1,13 @@
 "use client";
 
 import { ReactElement, useCallback, useEffect, useReducer } from "react";
-import { LocaleProvider } from "@hi18n/react";
+import { LocaleProvider, useI18n } from "@hi18n/react";
 import { initialState, reducer } from "./state";
 import { getShuffledCandidates } from "./candidates";
 import { TitlePage } from "./TitlePage";
 import { MainPage } from "./MainPage";
 import { ResultPage } from "./ResultPage";
+import { book } from "./locales";
 
 export function App(): ReactElement | null {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -62,6 +63,7 @@ export function App(): ReactElement | null {
             <ResultPage lottery={state.lottery!} goBack={goBack} />
         }
       </div>
+      <SetTitle />
     </LocaleProvider>
   );
 }
@@ -75,4 +77,14 @@ function selectLocaleFromDefault(): string {
     }
   }
   return "en";
+}
+
+function SetTitle(): ReactElement | null {
+  const { t } = useI18n(book);
+  const title = t("title/title");
+  useEffect(() => {
+    console.log("Updating title to", title);
+    document.title = title;
+  }, [title]);
+  return null;
 }
