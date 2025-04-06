@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useReducer } from "react";
+import { ReactElement, useCallback, useReducer } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { initialState, reducer } from "./state";
 import { getShuffledCandidates } from "./candidates";
@@ -8,13 +8,13 @@ import { TitlePage } from "./TitlePage";
 import { MainPage } from "./MainPage";
 import { ResultPage } from "./ResultPage";
 
-export function App() {
+export function App(): ReactElement | null {
   const [state, dispatch] = useReducer(reducer, initialState);
   const start = useCallback(() => {
     const candidates = getShuffledCandidates(state.mode);
     dispatch({ type: "start", payload: { candidates } });
   }, [dispatch, state.mode]);
-  const push = useCallback((index, newValue) => {
+  const push = useCallback((index: number, newValue: string) => {
     dispatch({ type: "push", payload: { index, newValue } });
   }, [dispatch]);
   const goResult = useCallback(() => {
@@ -23,7 +23,7 @@ export function App() {
   const goBack = useCallback(() => {
     dispatch({ type: "goBack" });
   }, [dispatch]);
-  const setMode = useCallback((mode) => {
+  const setMode = useCallback((mode: "basic" | "advanced") => {
     dispatch({ type: "setMode", payload: { mode } });
   }, [dispatch]);
 

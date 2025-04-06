@@ -1,17 +1,25 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { ReactElement, useCallback, useEffect, useRef } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 
-export function SlotUnit(props) {
+export type SlotUnitProps = {
+  value?: string | null | undefined;
+  options: string[];
+  randValue: number;
+  push: (value: string) => void;
+  focus: boolean;
+};
+
+export function SlotUnit(props: SlotUnitProps): ReactElement | null {
   const { value, options, randValue, push, focus } = props;
   const optionsExt = [...options, options[0]];
   const off = -randValue * 240 * options.length;
   const onPush = useCallback(() => {
-    const sampled = options[Math.floor(randValue * options.length)];
+    const sampled = options[Math.floor(Math.random() * options.length)];
     push(sampled);
   }, [options, push]);
-  const button = useRef(null);
+  const button = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (focus) {
       button.current?.focus();

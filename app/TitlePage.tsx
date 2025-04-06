@@ -1,11 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { ChangeEvent, ReactElement, useEffect, useRef } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 
-export function TitlePage(props) {
+export type TitlePageProps = {
+  start: () => void;
+  mode: "basic" | "advanced";
+  setMode: (mode: "basic" | "advanced") => void;
+};
+
+export function TitlePage(props: TitlePageProps): ReactElement | null {
   const { start, mode, setMode } = props;
-  const button = useRef(null);
+  const button = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     button.current?.focus();
   }, []);
@@ -50,7 +56,7 @@ export function TitlePage(props) {
               // value={mode}
               value: mode,
               // onChange={(e) => setMode(e.currentTarget.value)}
-              onChange: (e) => setMode(e.currentTarget.value),
+              onChange: (e: ChangeEvent<HTMLSelectElement>) => setMode(e.currentTarget.value as "basic" | "advanced"),
               // >
               children: [
                 // <option

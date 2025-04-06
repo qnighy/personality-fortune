@@ -1,17 +1,24 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { ReactElement, useEffect, useMemo, useState } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 import { SlotUnit } from "./SlotUnit";
 
-export function MainPage(props) {
+export type MainPageProps = {
+  lottery: string;
+  candidates: string[];
+  push: (index: number, newValue: string) => void;
+  goResult: () => void;
+};
+
+export function MainPage(props: MainPageProps): ReactElement | null {
   const { lottery, candidates, push, goResult } = props;
   const lotteryOptions = useMemo(() =>
     [...lottery].map((_ch, i) => candidates.map((s) => s[i])),
     [lottery, candidates]
   );
 
-  const [rands, setRands] = useState([0, 0, 0, 0]);
+  const [rands, setRands] = useState<number[]>([0, 0, 0, 0]);
   const needsAnimation = lottery.indexOf("*") >= 0;
   useEffect(() => {
     if (!needsAnimation) return;
@@ -63,8 +70,8 @@ export function MainPage(props) {
                 options: lotteryOptions[i],
                 // randValue={rands[i]}
                 randValue: rands[i],
-                // push={(ch) => push(i, ch)}
-                push: (ch) => push(i, ch),
+                // push={(ch: string) => push(i, ch)}
+                push: (ch: string) => push(i, ch),
                 // focus={focusIndex === i}
                 focus: focusIndex === i,
               }, `slot-${i}`)

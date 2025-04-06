@@ -1,11 +1,18 @@
-export const initialState = {
+export type State = {
+  page: "title" | "main" | "result";
+  mode: "basic" | "advanced";
+  lottery: string | null;
+  candidates: string[] | null;
+};
+
+export const initialState: State = {
   page: "title",
   mode: "basic",
   lottery: null,
   candidates: null,
 };
 
-export function reducer(state, action) {
+export function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "start": {
       const { candidates } = action.payload;
@@ -18,12 +25,12 @@ export function reducer(state, action) {
     }
     case "push": {
       const { index, newValue } = action.payload;
-      if (state.lottery[index] !== "*") {
+      if (state.lottery![index] !== "*") {
         return state;
       }
-      const newLottery = state.lottery.slice(0, index) + newValue + state.lottery.slice(index + 1);
+      const newLottery = state.lottery!.slice(0, index) + newValue + state.lottery!.slice(index + 1);
       const pattern = compilePattern(newLottery);
-      const newCandidates = state.candidates.filter((candidate) => pattern.test(candidate));
+      const newCandidates = state.candidates!.filter((candidate) => pattern.test(candidate));
       if (newCandidates.length === 0) {
         return state;
       }
@@ -58,6 +65,39 @@ export function reducer(state, action) {
   }
 }
 
-function compilePattern(lottery) {
+function compilePattern(lottery: string): RegExp {
   return new RegExp(`^${lottery.replace(/\*/g, ".")}$`);
 }
+
+export type Action =
+  | StartAction
+  | PushAction
+  | GoResultAction
+  | GoBackAction
+  | SetModeAction;
+
+export type StartAction = {
+  type: "start";
+  payload: {
+    candidates: string[];
+  };
+};
+export type PushAction = {
+  type: "push";
+  payload: {
+    index: number;
+    newValue: string;
+  };
+};
+export type GoResultAction = {
+  type: "goResult";
+};
+export type GoBackAction = {
+  type: "goBack";
+};
+export type SetModeAction = {
+  type: "setMode";
+  payload: {
+    mode: "basic" | "advanced";
+  };
+};

@@ -1,11 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { ReactElement, useEffect, useRef } from "react";
 import { jsx, jsxs } from "react/jsx-runtime";
 
-export function ResultPage(props) {
+export type ResultPageProps = {
+  lottery: string;
+  goBack: () => void;
+};
+
+export function ResultPage(props: ResultPageProps): ReactElement | null {
   const { lottery, goBack } = props;
-  const button = useRef(null);
+  const button = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     button.current?.focus();
   }, []);

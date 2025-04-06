@@ -1,4 +1,4 @@
-const CANDIDATES_BASIC = [
+const CANDIDATES_BASIC: string[] = [
   "ISTJ",
   "ISTP",
   "ISFJ",
@@ -16,7 +16,7 @@ const CANDIDATES_BASIC = [
   "ENFJ",
   "ENFP",
 ];
-const CANDIDATES_ADVANCED = [
+const CANDIDATES_ADVANCED: string[] = [
   "ISTJ",
   "ISTP",
   "ISFJ",
@@ -165,10 +165,10 @@ const CANDIDATES_ADVANCED = [
   "YAML",
 ];
 
-export function getShuffledCandidates(mode) {
+export function getShuffledCandidates(mode: "basic" | "advanced") {
   return shuffle(mode === "basic" ? CANDIDATES_BASIC : CANDIDATES_ADVANCED);
 }
-function shuffle(array) {
+function shuffle<T>(array: readonly T[]): T[] {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 1; i--) {
     const j = Math.floor(Math.random() * (i + 1));
