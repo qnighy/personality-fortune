@@ -14,10 +14,19 @@
     border-radius: 5px;
 
     /* content */
-    background-color: var(--color-green-700);
-    color: white;
+    background-color: var(--btn-bg);
+    color: var(--btn-fg);
     cursor: pointer;
     box-shadow: var(--shadow-md);
+
+    /* defaults */
+    --btn-bg: var(--color-slate-100);
+    --btn-fg: var(--color-gray-900);
+  }
+  .btn.btn-primary {
+    /* content */
+    --btn-bg: var(--color-green-700);
+    --btn-fg: white;
   }
 
   .btn:focus {

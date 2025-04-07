@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactElement, useEffect, useMemo, useState } from "react";
+import { ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import { SlotUnit } from "./SlotUnit";
 
 export type MainPageProps = {
@@ -47,10 +47,17 @@ export function MainPage(props: MainPageProps): ReactElement | null {
     }
   }, [isFinished, goResult]);
 
+  const nextButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (isFinished) {
+      nextButton.current?.focus();
+    }
+  }, [isFinished]);
+
   return (
-    <div className="MainPage__container w-full h-full">
+    <div className="MainPage__container w-full h-full flex flex-col place-content-center place-items-center">
       <div
-        className="MainPage__lottery-container w-full h-full grid grid-cols-2 md:flex md:flex-row place-content-center place-items-center"
+        className="MainPage__lottery-container grid grid-cols-2 md:flex md:flex-row place-content-center place-items-center"
       >
         {
           [...lottery].map((ch, i) =>
@@ -64,6 +71,14 @@ export function MainPage(props: MainPageProps): ReactElement | null {
           )
         }
       </div>
+      <button
+        ref={nextButton}
+        className={`MainPage__next-button btn mt-5 px-5 py-2.5 text-2xl${isFinished ? '' : ' invisible'}`}
+        onClick={() => goResult()}
+        disabled={!isFinished}
+      >
+        Next
+      </button>
     </div>
   );
 }

@@ -61,7 +61,7 @@ export function SlotUnit(props: SlotUnitProps): ReactElement | null {
           !value &&
             <button
               ref={button}
-              className="btn SlotUnit__button w-full h-full text-2xl"
+              className="btn btn-primary SlotUnit__button w-full h-full text-2xl"
               onClick={onPush}
             >
               {t("main/stop-slot")}
