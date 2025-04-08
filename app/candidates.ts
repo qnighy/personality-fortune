@@ -101,6 +101,7 @@ const CANDIDATES_ADVANCED: string[] = [
   "ESXI",
   "ETCD",
   "EULA", // Unrelated to Genshin Impact
+  "EVEX",
   "EXEC",
   "EXIF",
   "FIFA",
