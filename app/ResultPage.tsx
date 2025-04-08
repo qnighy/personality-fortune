@@ -30,7 +30,7 @@ export function ResultPage(props: ResultPageProps): ReactElement | null {
             result={
               <Wrapper
                 node={
-                  <span className="ResultPage__lottery-main text-3xl font-bold">
+                  <span className="ResultPage__lottery-main text-3xl font-bold" translate="no">
                     {lottery}
                   </span>
                 }

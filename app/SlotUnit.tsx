@@ -37,7 +37,7 @@ export function SlotUnit(props: SlotUnitProps): ReactElement | null {
             <div
               className="SlotUnit__option absolute w-45 h-60 left-0 text-abs-50 text-center align-middle top-0"
             >
-              <span className="SlotUnit__option-text">
+              <span className="SlotUnit__option-text" translate="no">
                 {value}
               </span>
             </div>
@@ -49,7 +49,7 @@ export function SlotUnit(props: SlotUnitProps): ReactElement | null {
                 className="SlotUnit__option absolute w-45 h-60 left-0 text-abs-50 text-center align-middle filter-[url(#blur-vertical)] select-none cursor-default"
                 style={{ top: `calc(var(--spacing) * ${offset + (i - 1)} * 70)` }}
               >
-                <span className="SlotUnit__option-text">
+                <span className="SlotUnit__option-text" translate="no">
                   {options[index]}
                 </span>
               </div>

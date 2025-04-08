@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement, useCallback, useEffect, useReducer } from "react";
-import { LocaleProvider, useI18n } from "@hi18n/react";
+import { LocaleProvider, useI18n, useLocales } from "@hi18n/react";
 import { initialState, reducer } from "./state";
 import { getShuffledCandidates } from "./candidates";
 import { TitlePage } from "./TitlePage";
@@ -64,6 +64,7 @@ export function App(): ReactElement | null {
         }
       </div>
       <SetTitle />
+      <SetHtmlLang />
     </LocaleProvider>
   );
 }
@@ -86,5 +87,14 @@ function SetTitle(): ReactElement | null {
     console.log("Updating title to", title);
     document.title = title;
   }, [title]);
+  return null;
+}
+
+function SetHtmlLang(): ReactElement | null {
+  const locales = useLocales();
+  const locale = locales[0];
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
   return null;
 }
