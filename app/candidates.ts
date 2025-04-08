@@ -139,6 +139,7 @@ const CANDIDATES_ADVANCED: string[] = [
   "IKEA",
   "IMDB", // IMDb
   "IMHO",
+  "INFO",
   "INTL",
   "IOPS",
   "IPAD",
