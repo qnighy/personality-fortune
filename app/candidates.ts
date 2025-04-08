@@ -45,6 +45,7 @@ const CANDIDATES_ADVANCED: string[] = [
   "ADSL",
   "ANSI",
   "APEC",
+  "ASAP",
   "ASLR",
   "ASMR",
   "ASPX",
