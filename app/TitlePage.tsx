@@ -21,7 +21,7 @@ export function TitlePage(props: TitlePageProps): ReactElement | null {
   }, []);
   return (
     <div className="TitlePage__container w-full h-full flex flex-col place-content-center place-items-center">
-      <h1 className="TitlePage__title text-5xl font-bold text-center text-gray-800">
+      <h1 className="TitlePage__title text-5xl font-bold text-center">
         {t("title/title")}
       </h1>
       <button

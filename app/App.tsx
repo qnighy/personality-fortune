@@ -38,7 +38,7 @@ export function App(): ReactElement | null {
 
   return (
     <LocaleProvider locales={[state.locale]} >
-      <div className="App__container w-screen h-screen bg-orange-100">
+      <div className="App__container w-screen h-screen">
         {
           state.page === "title" &&
             <TitlePage

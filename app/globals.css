@@ -26,7 +26,7 @@
   .btn.btn-primary {
     /* content */
     --btn-bg: var(--color-green-700);
-    --btn-fg: white;
+    --btn-fg: var(--color-gray-50);
   }
 
   .btn:focus {
@@ -48,10 +48,20 @@
     border-radius: var(--radius-md);
 
     /* content */
-    background-color: var(--color-red-50);
-    color: var(--stone-50);
+    background-color: var(--sel-bg);
+    color: var(--sel-fg);
     cursor: pointer;
     box-shadow: var(--shadow-sm);
+
+    /* defaults */
+    --sel-bg: var(--color-red-50);
+    --sel-fg: var(--color-stone-950);
+  }
+  @media (prefers-color-scheme: dark) {
+    .sel {
+      --sel-bg: var(--color-red-900);
+      --sel-fg: var(--color-stone-50);
+    }
   }
   .sel:focus {
     outline: none;
@@ -61,4 +71,27 @@
     outline: 2px solid var(--color-sky-400);
     outline-offset: 2px;
   }
+}
+
+:root {
+  --background: var(--color-orange-100);
+  --foreground: var(--color-gray-800);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--color-rose-950);
+    --foreground: var(--color-gray-100);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  /* font-family: Arial, Helvetica, sans-serif; */
 }

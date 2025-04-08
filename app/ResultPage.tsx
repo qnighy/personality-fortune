@@ -18,7 +18,7 @@ export function ResultPage(props: ResultPageProps): ReactElement | null {
   }, []);
   return (
     <div className="ResultPage__container w-full h-full flex flex-col place-content-center place-items-center">
-      <h1 className="ResultPage__title m-0 text-5xl font-bold text-center text-gray-800">
+      <h1 className="ResultPage__title m-0 text-5xl font-bold text-center">
         {t("result/title")}
       </h1>
       <div className="ResultPage__lottery px-5 py-2.5 text-2xl">
