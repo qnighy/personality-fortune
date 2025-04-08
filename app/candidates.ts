@@ -108,6 +108,7 @@ const CANDIDATES_ADVANCED: string[] = [
   "FIFO",
   "FIJI",
   "FIRE",
+  "FOCA",
   "FOSS",
   "FPGA",
   "FQDN",
@@ -141,6 +142,7 @@ const CANDIDATES_ADVANCED: string[] = [
   "IKEA",
   "IMDB", // IMDb
   "IMHO",
+  "IMSA",
   "INFO",
   "INTL",
   "IOPS",
@@ -227,6 +229,7 @@ const CANDIDATES_ADVANCED: string[] = [
   "PCAP",
   "PDAF",
   "PING",
+  "PISA",
   "PNAS",
   "PPAP",
   "PRML",
