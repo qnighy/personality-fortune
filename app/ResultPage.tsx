@@ -1,3 +1,6 @@
+// Licensed under the MIT License. See LICENSE file for details.
+// Copyright (c) 2025 Masaki Hara
+
 "use client";
 
 import { Translate, useI18n } from "@hi18n/react";

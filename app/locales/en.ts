@@ -1,3 +1,6 @@
+// Licensed under the MIT License. See LICENSE file for details.
+// Copyright (c) 2025 Masaki Hara
+
 import { msg, Catalog } from "@hi18n/core";
 import type { Vocabulary } from ".";
 

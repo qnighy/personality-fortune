@@ -1,3 +1,6 @@
+// Licensed under the MIT License. See LICENSE file for details.
+// Copyright (c) 2025 Masaki Hara
+
 export type State = {
   page: "title" | "main" | "result";
   mode: "basic" | "advanced";

@@ -1,3 +1,6 @@
+// Licensed under the MIT License. See LICENSE file for details.
+// Copyright (c) 2025 Masaki Hara
+
 import { Book, ComponentPlaceholder, Message } from "@hi18n/core";
 import catalogEn from "./en";
 import catalogJa from "./ja";
