@@ -40,6 +40,7 @@ export function TitlePage(props: TitlePageProps): ReactElement | null {
           className="sel TitlePage__settings-mode mx-1 text-xl"
           value={mode}
           onChange={(e: ChangeEvent<HTMLSelectElement>) => setMode(e.currentTarget.value as "basic" | "advanced")}
+          title={t("title/mode-label")}
         >
           <option className="opt TitlePage__settings-mode-option" value="basic">
             {t("mode/basic")}
@@ -52,6 +53,7 @@ export function TitlePage(props: TitlePageProps): ReactElement | null {
           className="sel TitlePage__settings-locale mx-1 text-xl"
           value={locale}
           onChange={(e: ChangeEvent<HTMLSelectElement>) => setLocale(e.currentTarget.value)}
+          title={t("title/language-label")}
         >
           <option className="opt TitlePage__settings-locale-option" value="en">
             English

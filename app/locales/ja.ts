@@ -15,4 +15,6 @@ export default new Catalog<Vocabulary>("ja", {
   "result/title": msg("診断結果"),
   "title/start": msg("診断をはじめる"),
   "title/title": msg("性格診断"),
+  "title/mode-label": msg("モードを選択"),
+  "title/language-label": msg("言語を選択"),
 });

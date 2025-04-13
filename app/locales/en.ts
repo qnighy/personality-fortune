@@ -15,4 +15,6 @@ export default new Catalog<Vocabulary>("en", {
   "result/title": msg("Result"),
   "title/start": msg("Start"),
   "title/title": msg("Personality Assessment"),
+  "title/mode-label": msg("Select a mode"),
+  "title/language-label": msg("Select a language"),
 });

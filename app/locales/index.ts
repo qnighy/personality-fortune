@@ -15,6 +15,8 @@ export type Vocabulary = {
   "result/title": Message;
   "title/title": Message;
   "title/start": Message;
+  "title/mode-label": Message;
+  "title/language-label": Message;
 };
 
 export const book = new Book<Vocabulary>({
