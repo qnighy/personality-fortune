@@ -5,6 +5,7 @@
 
 import { ReactElement, useEffect, useMemo, useRef, useState } from "react";
 import { SlotUnit } from "./SlotUnit";
+import { useAnimatedDelay } from "./useAnimatedDelay";
 
 export type MainPageProps = {
   lottery: string;
@@ -38,17 +39,19 @@ export function MainPage(props: MainPageProps): ReactElement | null {
 
   const focusIndex = lottery.indexOf("*");
 
+  const {
+    progress: goResultTimerProgress,
+    delayed: runGoResultWithDelay,
+  } = useAnimatedDelay();
+
   const isFinished = lottery.indexOf("*") < 0;
   useEffect(() => {
     if (isFinished) {
-      const timer = setTimeout(() => {
+      runGoResultWithDelay(() => {
         goResult();
       }, 1000);
-      return () => {
-        clearTimeout(timer);
-      };
     }
-  }, [isFinished, goResult]);
+  }, [isFinished, goResult, runGoResultWithDelay]);
 
   const nextButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -78,11 +81,15 @@ export function MainPage(props: MainPageProps): ReactElement | null {
       <button
         type="button"
         ref={nextButton}
-        className={`MainPage__next-button btn mt-5 px-5 py-2.5 text-2xl${isFinished ? '' : ' invisible'}`}
+        className={`MainPage__next-button btn mt-5 px-5 py-2.5 text-2xl${isFinished ? '' : ' invisible'} relative`}
         onClick={() => goResult()}
         disabled={!isFinished}
       >
         Next
+        <div
+          className={`MainPage__next-button-timer absolute left-0 top-0 h-full bg-slate-700/5`}
+          style={{ width: `${goResultTimerProgress * 100}%` }}
+        />
       </button>
     </div>
   );
