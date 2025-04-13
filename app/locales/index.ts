@@ -7,6 +7,7 @@ import catalogJa from "./ja";
 
 export type Vocabulary = {
   "main/stop-slot": Message;
+  "main/stop-slot-label": Message<{ index: number }>;
   "mode/advanced": Message;
   "mode/basic": Message;
   "result/description": Message<{ span: ComponentPlaceholder, result: ComponentPlaceholder }>;

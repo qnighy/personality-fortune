@@ -65,6 +65,7 @@ export function MainPage(props: MainPageProps): ReactElement | null {
         {
           [...lottery].map((ch, i) =>
             <SlotUnit key={`slot-${i}`}
+              index={i}
               value={ch === "*" ? null : ch}
               options={lotteryOptions[i]}
               randValue={rands[i]}
