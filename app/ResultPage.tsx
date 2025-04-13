@@ -43,6 +43,7 @@ export function ResultPage(props: ResultPageProps): ReactElement | null {
         </span>
       </div>
       <button
+        type="button"
         ref={button}
         className="btn btn-primary ResultPage__go-back-button mt-5 px-5 py-2.5 text-2xl"
         onClick={goBack}

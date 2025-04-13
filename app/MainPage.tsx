@@ -75,6 +75,7 @@ export function MainPage(props: MainPageProps): ReactElement | null {
         }
       </div>
       <button
+        type="button"
         ref={nextButton}
         className={`MainPage__next-button btn mt-5 px-5 py-2.5 text-2xl${isFinished ? '' : ' invisible'}`}
         onClick={() => goResult()}

@@ -28,6 +28,7 @@ export function TitlePage(props: TitlePageProps): ReactElement | null {
         {t("title/title")}
       </h1>
       <button
+        type="button"
         ref={button}
         className="btn btn-primary TitlePage__start-button mt-5 px-5 py-2.5 text-2xl"
         onClick={start}
