@@ -69,7 +69,7 @@ export function SlotUnit(props: SlotUnitProps): ReactElement | null {
                 ref={button}
                 className="btn btn-primary SlotUnit__button w-full h-full text-2xl"
                 onClick={onPush}
-                aria-label={t("main/stop-slot-label", { index: index + 1 })}
+                title={t("main/stop-slot-label", { index: index + 1 })}
               >
                 {t("main/stop-slot")}
               </button>
